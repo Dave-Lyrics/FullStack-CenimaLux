@@ -29,7 +29,7 @@ const HomePage = () => {
   return (
     <div>
       {/* Hero */}
-      <section className="min-h-[70vh] flex items-center justify-center text-center px-5 bg-gradient-to-br from-[#1a1a2e] via-[#16213e] to-[#0f3460]">
+      <section id="hero-bg" className="min-h-[70vh] flex items-center justify-center text-center px-5 bg-gradient-to-br from-[#1a1a2e] via-[#16213e] to-[#0f3460]">
         <div className="max-w-2xl">
           <h1 className="text-4xl sm:text-5xl font-bold bg-gradient-to-r from-gold to-golddark bg-clip-text text-transparent mb-4">
             Experience Cinema Like Never Before

@@ -9,6 +9,12 @@ import movieRoutes from "./routes/movie.routes.js";
 import showtimeRoutes from "./routes/showtime.routes.js";
 import bookingRoutes from "./routes/booking.routes.js";
 import paymentRoutes from "./routes/payment.routes.js";
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+// Recreate __dirname for ES Modules
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 dotenv.config();
 
@@ -32,6 +38,17 @@ app.use("/api/bookings", bookingRoutes);
 app.use("/api/payments", paymentRoutes);
 
 app.get("/api/health", (req, res) => res.json({ status: "ok" }));
+
+if (process.env.NODE_ENV === "production") {
+  // Step out of the backend folder using '..'
+  const frontendPath = path.join(__dirname, "..", "frontend", "dist");
+
+  app.use(express.static(frontendPath));
+
+  app.get("*", (req, res) => {
+    res.sendFile(path.resolve(frontendPath, "index.html"));
+  });
+}
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);

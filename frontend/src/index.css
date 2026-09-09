@@ -30,6 +30,16 @@ body {
   );
 }
 
+#hero-bg {
+  /* Using a combination of image linear gradients to create a dark overlay directly in the background */
+  background: linear-gradient(to top, #141414, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.7)),
+              url('/hero.jpg'); /* Change to your exact file name */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
 ::-webkit-scrollbar { width: 8px; height: 8px; }
 ::-webkit-scrollbar-track { background: #141414; }
 ::-webkit-scrollbar-thumb { background: #333; border-radius: 4px; }
