@@ -47,7 +47,7 @@ const HomePage = () => {
       <section id="now-showing" className="max-w-6xl mx-auto px-5 py-16">
         <h2 className="text-3xl font-bold text-gold text-center mb-10">Now Showing</h2>
         {nowShowing.length === 0 ? (
-          <p className="text-center text-gray-500">No movies showing right now — the admin hasn&#39;t added any yet.</p>
+          <p className="text-center text-gray-500">No movies playing right now. Check back soon!</p>
         ) : (
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {nowShowing.map((m) => <MovieCard key={m._id} movie={m} onClick={() => setSelected(m)} />)}
