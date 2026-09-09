@@ -20,10 +20,21 @@ const HomePage = () => {
   const [nowShowing, setNowShowing] = useState([]);
   const [comingSoon, setComingSoon] = useState([]);
   const [selected, setSelected] = useState(null);
+  const [moviesError, setMoviesError] = useState("");
 
   useEffect(() => {
-    getMovies("now_showing").then((res) => setNowShowing(res.data)).catch(() => {});
-    getMovies("coming_soon").then((res) => setComingSoon(res.data)).catch(() => {});
+    Promise.all([
+      getMovies("now_showing"),
+      getMovies("coming_soon"),
+    ])
+      .then(([nowShowingResponse, comingSoonResponse]) => {
+        setNowShowing(nowShowingResponse.data);
+        setComingSoon(comingSoonResponse.data);
+      })
+      .catch((error) => {
+        console.error("Failed to load movies:", error);
+        setMoviesError("Unable to load movies. Please check that the backend is running.");
+      });
   }, []);
 
   return (
@@ -46,7 +57,9 @@ const HomePage = () => {
 
       <section id="now-showing" className="max-w-6xl mx-auto px-5 py-16">
         <h2 className="text-3xl font-bold text-gold text-center mb-10">Now Showing</h2>
-        {nowShowing.length === 0 ? (
+        {moviesError ? (
+          <p className="text-center text-red-400">{moviesError}</p>
+        ) : nowShowing.length === 0 ? (
           <p className="text-center text-gray-500">No movies playing right now. Check back soon!</p>
         ) : (
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
